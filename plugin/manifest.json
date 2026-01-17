@@ -26,12 +26,12 @@
     ]
   },
   "name": {
-    "en": "LinkSpy",
-    "ja": "LinkSpy"
+    "en": "template",
+    "ja": "template"
   },
   "description": {
-    "en": "Allows tracking of link clicks by count and user, for admins or all users.",
-    "ja": "レコード内リンクのクリック数とユーザトラッキングできるプラグイン"
+    "en": "foo",
+    "ja": "bar"
   },
   "homepage_url": {
     "en": "https://kintone.dev",
