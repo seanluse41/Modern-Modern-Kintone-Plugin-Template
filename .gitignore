@@ -2,3 +2,4 @@ node_modules
 *.ppk
 *.env
 dist
+.npm-packages

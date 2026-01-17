@@ -33,6 +33,10 @@
     "en": "Allows tracking of link clicks by count and user, for admins or all users.",
     "ja": "レコード内リンクのクリック数とユーザトラッキングできるプラグイン"
   },
+  "homepage_url": {
+    "en": "https://kintone.dev",
+    "ja": "https://cybozu.dev"
+  },
   "mobile": {
     "js": [
       "js/mobile.js"
