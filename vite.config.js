@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { resolve } from 'path';
 
 const entries = {
@@ -12,6 +13,7 @@ export default defineConfig(({ mode }) => {
   const name = mode || 'desktop';
   
   return {
+    plugins: [svelte()],
     build: {
       outDir: 'plugin/js',
       emptyOutDir: false,

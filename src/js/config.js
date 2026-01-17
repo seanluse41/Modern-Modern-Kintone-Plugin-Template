@@ -1,27 +1,15 @@
+import { mount } from 'svelte';
+import Config from '../Config.svelte';
+
 const PLUGIN_ID = kintone.$PLUGIN_ID;
 
-const form = document.querySelector('.js-submit-settings');
-const cancelButton = document.querySelector('.js-cancel-button');
-const messageInput = document.querySelector('.js-text-message');
+const formElement = document.querySelector('.settings');
 
-if (!(form && cancelButton && messageInput)) {
+if (!formElement) {
   throw new Error('Required elements do not exist.');
 }
 
-const config = kintone.plugin.app.getConfig(PLUGIN_ID);
-
-if (config.message) {
-  messageInput.value = config.message;
-}
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  kintone.plugin.app.setConfig({ message: messageInput.value }, () => {
-    alert('The plug-in settings have been saved. Please update the app!');
-    window.location.href = '../../flow?app=' + kintone.app.getId();
-  });
-});
-
-cancelButton.addEventListener('click', () => {
-  window.location.href = '../../' + kintone.app.getId() + '/plugin/';
+mount(Config, {
+  target: formElement,
+  props: { pluginId: PLUGIN_ID }
 });
