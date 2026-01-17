@@ -1,6 +1,9 @@
+import { setupI18n } from '../i18n.js';
+
 const PLUGIN_ID = kintone.$PLUGIN_ID;
 
-kintone.events.on('app.record.index.show', () => {
+kintone.events.on('app.record.index.show', async () => {
+  const i18n = await setupI18n();
   const config = kintone.plugin.app.getConfig(PLUGIN_ID);
 
   const spaceElement = kintone.app.getHeaderSpaceElement();
@@ -15,7 +18,7 @@ kintone.events.on('app.record.index.show', () => {
   messageEl.classList.add('plugin-space-message');
   messageEl.textContent = config.message;
   headingEl.classList.add('plugin-space-heading');
-  headingEl.textContent = 'Hello kintone plugin!';
+  headingEl.textContent = i18n.t('helloKintone');
 
   fragment.appendChild(headingEl);
   fragment.appendChild(messageEl);
