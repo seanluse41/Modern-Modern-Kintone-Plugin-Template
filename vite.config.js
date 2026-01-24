@@ -13,7 +13,11 @@ export default defineConfig(({ mode }) => {
   const name = mode || 'desktop';
   
   return {
-    plugins: [svelte()],
+    plugins: [
+      svelte({
+        emitCss: false
+      })
+    ],
     build: {
       outDir: 'plugin/js',
       emptyOutDir: false,
