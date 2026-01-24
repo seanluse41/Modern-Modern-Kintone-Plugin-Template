@@ -18,7 +18,6 @@
       "js/config.js"
     ],
     "css": [
-      "css/51-modern-default.css",
       "css/config.css"
     ],
     "required_params": [
@@ -26,12 +25,12 @@
     ]
   },
   "name": {
-    "en": "template",
-    "ja": "template"
+    "en": "LinkSpy",
+    "ja": "LinkSpy"
   },
   "description": {
-    "en": "foo",
-    "ja": "bar"
+    "en": "A Kintone Plugin Template that uses Vite, Svelte 5.0, Kintone UI Components, and has i18n ready",
+    "ja": "A Kintone Plugin Template that uses Vite, Svelte 5.0, Kintone UI Components, and has i18n ready"
   },
   "homepage_url": {
     "en": "https://kintone.dev",
