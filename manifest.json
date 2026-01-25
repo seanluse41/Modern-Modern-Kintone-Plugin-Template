@@ -25,8 +25,8 @@
     ]
   },
   "name": {
-    "en": "LinkSpy",
-    "ja": "LinkSpy"
+    "en": "More Modern Kintone Plugin Template",
+    "ja": "More Modern Kintone Plugin Template"
   },
   "description": {
     "en": "A Kintone Plugin Template that uses Vite, Svelte 5.0, Kintone UI Components, and has i18n ready",
