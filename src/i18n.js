@@ -23,6 +23,8 @@ i18next.init({
   lng: getUserLanguage(),
   fallbackLng: 'en',
   initImmediate: false,
+  // Values are rendered as text (never innerHTML), so don't HTML-escape them
+  interpolation: { escapeValue: false },
   resources: {
     en: { translation: en },
     ja: { translation: ja },
