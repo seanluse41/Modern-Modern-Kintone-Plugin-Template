@@ -42,12 +42,14 @@ KUC コンポーネントはラッパーなしで直接使用します。KUC は
 
   const kuc = (node) => {
     node.appendChild(button);
-    return () => { button.remove(); dialog.remove(); };
+    return () => { dialog.remove(); };
   };
 </script>
 
 <div {@attach kuc}></div>
 ```
+
+`Dialog` と `Notification` は `open()` 時に `document.body` に自身を追加しますが、`close()` はそれを削除せず、非表示にするだけです(デスクトップ・モバイル両方の `Notification` も同様)。これらは Svelte のテンプレートの外側にいるため、コンポーネントの unmount 時に Svelte が自動的に片付けてはくれません。使用したら `{@attach}` の返り値(クリーンアップ関数)で明示的に `.remove()` してください。それ以外の KUC コンポーネント(Button、Dropdown、Text など、自分でテンプレートに配置するもの)は Svelte が管理する DOM の一部なので手動で削除する必要はありません。例外は `Spinner` で、これは `close()` 自身が DOM から取り除いてくれるため、こちらも手動での削除は不要です。
 
 ### 多言語
 
@@ -123,14 +125,16 @@ KUC components are custom elements: construct one with `new Button()` etc., then
 
   const kuc = (node) => {
     node.appendChild(button);
-    return () => { button.remove(); dialog.remove(); };
+    return () => { dialog.remove(); };
   };
 </script>
 
 <div {@attach kuc}></div>
 ```
 
-`Dialog` appends itself to `document.body` on `open()`, so it never needs a spot in the template. Any KUC component (Dropdown, Text, Table, MobileButton, …) works the same way.
+Most KUC components (Button, Dropdown, Text, Table, …) are placed wherever you append them, so they're part of the DOM Svelte manages and get cleaned up automatically when the component unmounts — no manual removal needed.
+
+`Dialog` and `Notification` (desktop and mobile) are the exception: `open()` appends them to `document.body`, outside your template, and `close()` only hides them — it never removes them from the DOM. Since they live outside the tree Svelte owns, unmounting your component won't clean them up either. If you use either of these, call `.remove()` on them yourself in your `{@attach}` cleanup function, as above. (`Spinner` also self-appends to `document.body`, but its own `close()` does remove itself, so it doesn't need this.)
 
 ### i18n
 

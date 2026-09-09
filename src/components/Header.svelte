@@ -16,12 +16,13 @@
     dialog.open();
   });
 
-  // The dialog appends itself to document.body on open(), so only the
-  // button needs a place in this template. Both are removed on unmount.
+  // The dialog appends itself to document.body on open(), outside this
+  // template, so Svelte's own teardown won't remove it - Dialog and
+  // Notification both need a manual .remove() on unmount. See the KUC
+  // section of the README for which other components need this.
   const kuc = (node) => {
     node.appendChild(button);
     return () => {
-      button.remove();
       dialog.remove();
     };
   };
