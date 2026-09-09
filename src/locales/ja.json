@@ -2,5 +2,11 @@
   "helloKintone": "ようこそ kintone プラグイン！",
   "clickMe": "クリック",
   "close": "閉じる",
-  "savedMessage": "保存されたメッセージ: {{message}}"
+  "savedMessage": "保存されたメッセージ: {{message}}",
+  "configHeading": "プラグイン設定",
+  "configDescription": "このメッセージはアプリを更新した後、アプリのページに表示されます。",
+  "messageLabel": "メッセージ",
+  "save": "保存",
+  "cancel": "キャンセル",
+  "configSaved": "プラグインの設定を保存しました。アプリを更新してください！"
 }

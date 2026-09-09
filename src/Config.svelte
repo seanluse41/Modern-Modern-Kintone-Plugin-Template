@@ -1,44 +1,46 @@
 <script>
+  import { Button, Text } from 'kintone-ui-component';
+  import { t } from './i18n.js';
   let { pluginId } = $props();
-  
-  let message = $state('');
 
   const config = kintone.plugin.app.getConfig(pluginId);
-  if (config.message) {
-    message = config.message;
-  }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    kintone.plugin.app.setConfig({ message }, () => {
-      alert('The plug-in settings have been saved. Please update the app!');
+  const messageField = new Text({
+    label: t('messageLabel'),
+    value: config.message || '',
+  });
+
+  const cancelButton = new Button({ text: t('cancel'), type: 'normal' });
+  const saveButton = new Button({ text: t('save'), type: 'submit' });
+
+  cancelButton.addEventListener('click', () => {
+    window.location.href = '../../' + kintone.app.getId() + '/plugin/';
+  });
+
+  saveButton.addEventListener('click', () => {
+    kintone.plugin.app.setConfig({ message: messageField.value }, () => {
+      alert(t('configSaved'));
       window.location.href = '../../flow?app=' + kintone.app.getId();
     });
-  }
+  });
 
-  function handleCancel() {
-    window.location.href = '../../' + kintone.app.getId() + '/plugin/';
-  }
+  const field = (node) => {
+    node.appendChild(messageField);
+    return () => messageField.remove();
+  };
+
+  const buttons = (node) => {
+    node.appendChild(cancelButton);
+    node.appendChild(saveButton);
+    return () => {
+      cancelButton.remove();
+      saveButton.remove();
+    };
+  };
 </script>
 
-<h2 class="settings-heading">Plugin Settings</h2>
-<p class="kintoneplugin-desc">This message is displayed on the app page after the app has been updated.</p>
+<h2>{t('configHeading')}</h2>
+<p>{t('configDescription')}</p>
 
-<form class="js-submit-settings" onsubmit={handleSubmit}>
-  <p class="kintoneplugin-row">
-    <label for="message">
-      Message:
-      <input 
-        type="text" 
-        class="kintoneplugin-input-text"
-        bind:value={message}
-      />
-    </label>
-  </p>
-  <p class="kintoneplugin-row">
-    <button type="button" class="kintoneplugin-button-dialog-cancel" onclick={handleCancel}>
-      Cancel
-    </button>
-    <button class="kintoneplugin-button-dialog-ok">Save</button>
-  </p>
-</form>
+<div {@attach field}></div>
+<div {@attach buttons}></div>

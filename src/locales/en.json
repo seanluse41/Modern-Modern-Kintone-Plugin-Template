@@ -2,5 +2,11 @@
   "helloKintone": "Hello kintone plugin!",
   "clickMe": "Click Me",
   "close": "Close",
-  "savedMessage": "Your saved message is: {{message}}"
+  "savedMessage": "Your saved message is: {{message}}",
+  "configHeading": "Plugin Settings",
+  "configDescription": "This message is displayed on the app page after the app has been updated.",
+  "messageLabel": "Message",
+  "save": "Save",
+  "cancel": "Cancel",
+  "configSaved": "The plug-in settings have been saved. Please update the app!"
 }
