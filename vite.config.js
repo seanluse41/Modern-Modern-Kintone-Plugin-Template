@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       outDir: 'plugin/js',
       emptyOutDir: false,
       lib: {
-        entry: resolve(__dirname, entry),
+        entry: resolve(import.meta.dirname, entry),
         formats: ['iife'],
         name: 'KintonePlugin',
         fileName: () => `${name}.js`,

@@ -10,6 +10,8 @@ Vite、Svelte 5、Kintone UI Components を使用した i18n 対応の Kintone �
 git clone https://github.com/seanluse41/Modern-Modern-Kintone-Plugin-Template
 cd Modern-Modern-Kintone-Plugin-Template
 npm i
+cp .env.example .env  # base URL・ユーザー名・パスワードを記入
+npm run keygen  # 初回のみ: private.ppk を生成
 npm run build
 npm run pack
 npm run upload  # または手動でアップロード
@@ -97,6 +99,8 @@ A Kintone plugin template using Vite, Svelte 5, and Kintone UI Components with i
 git clone https://github.com/seanluse41/Modern-Modern-Kintone-Plugin-Template
 cd Modern-Modern-Kintone-Plugin-Template
 npm i
+cp .env.example .env  # fill in your base URL, username, and password
+npm run keygen  # first time only: generates private.ppk
 npm run build
 npm run pack
 npm run upload  # or upload manually
