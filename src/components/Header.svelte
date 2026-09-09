@@ -16,10 +16,10 @@
     dialog.open();
   });
 
-  // The dialog appends itself to document.body on open(), outside this
-  // template, so Svelte's own teardown won't remove it - Dialog and
-  // Notification both need a manual .remove() on unmount. See the KUC
-  // section of the README for which other components need this.
+  // Dialog and notification both need a manual .remove() on unmount otherwise you can create unlimited dialogues
+  // via pagination or changing views etc.
+  // See the KUC section of the README for more info.
+  
   const kuc = (node) => {
     node.appendChild(button);
     return () => {
