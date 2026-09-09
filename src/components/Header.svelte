@@ -1,18 +1,18 @@
 <script>
   import { Button, Dialog } from 'kintone-ui-component';
+  import { t } from '../i18n.js';
 
-  let { heading, message } = $props();
+  let { message } = $props();
 
   // KUC components are plain custom elements, so use them directly:
-  const closeButton = new Button({ text: 'Close', type: 'normal' });
-  const dialog = new Dialog({ icon: 'info', footer: closeButton });
-  const button = new Button({ text: 'Click Me', type: 'submit' });
+  const closeButton = new Button({ text: t('close'), type: 'normal' });
+  const dialog = new Dialog({ icon: 'info', title: t('helloKintone'), footer: closeButton });
+  const button = new Button({ text: t('clickMe'), type: 'submit' });
 
   closeButton.addEventListener('click', () => dialog.close());
 
   button.addEventListener('click', () => {
-    dialog.title = heading;
-    dialog.content = message;
+    dialog.content = t('savedMessage', { message });
     dialog.open();
   });
 

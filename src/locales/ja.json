@@ -1,3 +1,6 @@
 {
-  "helloKintone": "ようこそ kintone プラグイン！"
+  "helloKintone": "ようこそ kintone プラグイン！",
+  "clickMe": "クリック",
+  "close": "閉じる",
+  "savedMessage": "保存されたメッセージ: {{message}}"
 }

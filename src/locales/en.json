@@ -1,3 +1,6 @@
 {
-  "helloKintone": "Hello kintone plugin!"
+  "helloKintone": "Hello kintone plugin!",
+  "clickMe": "Click Me",
+  "close": "Close",
+  "savedMessage": "Your saved message is: {{message}}"
 }

@@ -1,39 +1,34 @@
 import i18next from 'i18next';
 
-import enTranslations from './locales/en.json';
-import jaTranslations from './locales/ja.json';
+import en from './locales/en.json';
+import ja from './locales/ja.json';
 
-export const setupI18n = async () => {
-  const userLanguage = await getUserLanguage();
-
-  await i18next.init({
-    lng: userLanguage,
-    fallbackLng: 'en',
-    resources: {
-      en: { translation: enTranslations },
-      ja: { translation: jaTranslations },
-    },
-  });
-
-  return i18next;
-};
-
-const getUserLanguage = async () => {
+const getUserLanguage = () => {
   try {
-    const user = await kintone.getLoginUser();
-    if (user.language) {
-      return user.language;
+    const { language } = kintone.getLoginUser();
+    if (language) {
+      return language;
     }
   } catch (error) {
     console.error('Error getting user language:', error);
   }
 
-  // Fallback to checking the URL if user language is not available
-  const url = kintone.api.url('/k/v1/records.json');
-  if (url.includes('kintone.com')) {
-    return 'en';
-  } else if (url.includes('cybozu.com')) {
-    return 'ja';
-  }
-  return 'ja'; // Default fallback
+  // Fallback to the domain if the user language is not available
+  return kintone.api.url('/k/v1/records.json').includes('kintone.com') ? 'en' : 'ja';
 };
+
+// Initialized synchronously on import (resources are inline), so `t` is
+// ready to use in any component without awaiting anything.
+i18next.init({
+  lng: getUserLanguage(),
+  fallbackLng: 'en',
+  initImmediate: false,
+  // Values are rendered as text (never innerHTML), so don't HTML-escape them
+  interpolation: { escapeValue: false },
+  resources: {
+    en: { translation: en },
+    ja: { translation: ja },
+  },
+});
+
+export const t = i18next.t.bind(i18next);

@@ -53,27 +53,20 @@ KUC コンポーネントはラッパーなしで直接使用します。KUC は
 
 翻訳は `src/locales/` で管理され、言語ごとに個別の JSON ファイル(例: `en.json`、`ja.json`)があります。
 
-初期直はkintoneユーザの言語設定で判定しています：
+言語は kintone ユーザーの言語設定から判定します(`src/i18n.js`)。`i18n.js` はインポート時に同期的に初期化されるため、どのコンポーネントからでも `t` をインポートしてそのまま使えます:
 
-``` js
-// src/i18n.js
-const getUserLanguage = async () => {
-  try {
-    const user = await kintone.getLoginUser();
-    if (user.language) {
-      return user.language;
-    }
-  } catch (error) {
-    console.error('Error getting user language:', error);
-  }
+```svelte
+<script>
+  import { Button } from 'kintone-ui-component';
+  import { t } from '../i18n.js';
+
+  const button = new Button({ text: t('clickMe'), type: 'submit' });
+</script>
+
+<p>{t('helloKintone')}</p>
 ```
 
-新しい言語を追加するには:
-1. `src/locales/` に新しい JSON ファイルを作成(例: `fr.json`)
-2. `i18n.js` でインポート
-3. `messages` オブジェクトに追加
-
-新しい翻訳を追加するには、ロケール JSON ファイルにキーを追加します:
+新しい翻訳を追加するには、各ロケール JSON ファイルにキーを追加します:
 
 ```json
 {
@@ -82,15 +75,9 @@ const getUserLanguage = async () => {
 }
 ```
 
-Svelte での使用:
-
-```svelte
-<script>
-  import { t } from "../js/i18n.js";
-</script>
-
-<p>{$t('welcome')}</p>
-```
+新しい言語を追加するには:
+1. `src/locales/` に新しい JSON ファイルを作成(例: `fr.json`)
+2. `i18n.js` でインポートし、`resources` に追加
 
 ---
 
@@ -149,27 +136,20 @@ KUC components are custom elements: construct one with `new Button()` etc., then
 
 Translations are managed in `src/locales/` with separate JSON files for each language (e.g., `en.json`, `ja.json`).
 
-The initial language value is set via the Kintone user's settings.
+The language is taken from the kintone user's language setting (`src/i18n.js`). `i18n.js` initializes synchronously on import, so any component can import `t` and use it directly:
 
-``` js
-// src/i18n.js
-const getUserLanguage = async () => {
-  try {
-    const user = await kintone.getLoginUser();
-    if (user.language) {
-      return user.language;
-    }
-  } catch (error) {
-    console.error('Error getting user language:', error);
-  }
+```svelte
+<script>
+  import { Button } from 'kintone-ui-component';
+  import { t } from '../i18n.js';
+
+  const button = new Button({ text: t('clickMe'), type: 'submit' });
+</script>
+
+<p>{t('helloKintone')}</p>
 ```
 
-To add a new language:
-1. Create a new JSON file in `src/locales/` (e.g., `fr.json`)
-2. Import it in `i18n.js`
-3. Add it to the `messages` object
-
-To add new translations, add keys to your locale JSON files:
+To add new translations, add keys to each locale JSON file:
 
 ```json
 {
@@ -178,12 +158,6 @@ To add new translations, add keys to your locale JSON files:
 }
 ```
 
-Use in Svelte:
-
-```svelte
-<script>
-  import { t } from "../js/i18n.js";
-</script>
-
-<p>{$t('welcome')}</p>
-```
+To add a new language:
+1. Create a new JSON file in `src/locales/` (e.g., `fr.json`)
+2. Import it in `i18n.js` and add it to `resources`
