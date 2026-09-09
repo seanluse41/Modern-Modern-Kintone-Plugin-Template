@@ -21,7 +21,7 @@
   }
 </script>
 
-<h2 class="settings-heading">Settings for LinkSpy</h2>
+<h2 class="settings-heading">Plugin Settings</h2>
 <p class="kintoneplugin-desc">This message is displayed on the app page after the app has been updated.</p>
 
 <form class="js-submit-settings" onsubmit={handleSubmit}>

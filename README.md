@@ -10,7 +10,7 @@ Vite、Svelte 5、Kintone UI Components を使用した i18n 対応の Kintone �
 git clone https://github.com/seanluse41/Modern-Modern-Kintone-Plugin-Template
 cd Modern-Modern-Kintone-Plugin-Template
 npm i
-cp .env.example .env  # base URL・ユーザー名・パスワードを記入
+cp .env.example .env
 npm run keygen  # 初回のみ: private.ppk を生成
 npm run build
 npm run pack
@@ -30,18 +30,23 @@ npm run upload  # または手動でアップロード
 
 ### Kintone UI Components
 
-KUC コンポーネントは `src/svelte/builders/desktop/` または　`/mobile` に Svelte化されています。例:
+KUC コンポーネントはラッパーなしで直接使用します。KUC はカスタム要素なので、`new Button()` などでインスタンスを作成し、Svelte の [attachment](https://svelte.dev/docs/svelte/@attach) で DOM に配置します。例は `src/components/Header.svelte` を参照:
 
 ```svelte
 <script>
-  import Button from "../builders/desktop/button.svelte";
+  import { Button, Dialog } from 'kintone-ui-component';
+
+  const dialog = new Dialog({ title: 'こんにちは', content: 'ボタンがクリックされました' });
+  const button = new Button({ text: 'クリック', type: 'submit' });
+  button.addEventListener('click', () => dialog.open());
+
+  const kuc = (node) => {
+    node.appendChild(button);
+    return () => { button.remove(); dialog.remove(); };
+  };
 </script>
 
-<Button
-  text="クリック"
-  type="submit"
-  onclick={() => alert("ボタンがクリックされました")}
-/>
+<div {@attach kuc}></div>
 ```
 
 ### 多言語
@@ -119,21 +124,26 @@ From `App.svelte`, you can import and use other Svelte components.
 
 ### Kintone UI Components
 
-KUC components are wrapped in Svelte files located in `src/svelte/builders/desktop/` or `/builders/mobile/`. Use them like this:
+KUC components are custom elements: construct one with `new Button()` etc., then place it in the DOM with a Svelte [attachment](https://svelte.dev/docs/svelte/@attach). See `src/components/Header.svelte` for an example:
 
 ```svelte
 <script>
-  import Button from "../builders/desktop/button.svelte";
+  import { Button, Dialog } from 'kintone-ui-component';
+
+  const dialog = new Dialog({ title: 'Hello', content: 'Button clicked!' });
+  const button = new Button({ text: 'Click Me', type: 'submit' });
+  button.addEventListener('click', () => dialog.open());
+
+  const kuc = (node) => {
+    node.appendChild(button);
+    return () => { button.remove(); dialog.remove(); };
+  };
 </script>
 
-<Button
-  text="Click Me"
-  type="submit"
-  onclick={() => alert("Button clicked!")}
-/>
+<div {@attach kuc}></div>
 ```
 
-Available wrappers include Button, Dropdown, Text, and others from the Kintone UI Components library.
+`Dialog` appends itself to `document.body` on `open()`, so it never needs a spot in the template. Any KUC component (Dropdown, Text, Table, MobileButton, …) works the same way.
 
 ### i18n
 
